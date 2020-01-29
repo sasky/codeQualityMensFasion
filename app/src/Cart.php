@@ -32,7 +32,7 @@ class Cart {
                     $discountAmount = ($discountAmount > 100) ? 100 : $discountAmount;
                     // the Discount Amount must be more than 0 ( no negatives )
                     $discountAmount = max($discountAmount, 0);
-                    
+                
                     if ($discountAmount === 100) {
                         $price = 0;
                     } else {
@@ -43,11 +43,8 @@ class Cart {
                         $price = (int)round(max(($price / 100) * $discountAmount, 0));
                     }
                 }
-                if ($discountType === 'MINUS' && $discountAmount) {
-                    // convert $discountAmount into cents
-                    $discountAmount = (int)$discountAmount * 100;
-                    $price = (int)round(max($price - $discountAmount, 0));
-                }
+                $price = $this->calculateDiscount($price, $discountAmount, $discountType);
+     
             }
             $total += (float) number_format( $price / 100, 2,'.','');
         }
@@ -55,5 +52,18 @@ class Cart {
 
         return $total;
        
+    }
+
+    private function calculateDiscount(int $price,int $discountAmount, string $type) :int
+    {
+        if($type == 'PERCENT') {
+
+        } elseif  ($type == 'MINUS'){
+            // convert $discountAmount into cents
+            $discountAmount = (int) $discountAmount * 100;
+            // price minus the discount 
+            $price = (int) round(max($price - $discountAmount, 0));
+        }
+        return $price;
     }
 }
