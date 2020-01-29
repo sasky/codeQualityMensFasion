@@ -2,6 +2,7 @@
 namespace MensFashion\Tests;
 
 
+use CodeQuality\src\Cart;
 use SilverStripe\Dev\SapphireTest;
 
 class CartTest extends SapphireTest
@@ -9,7 +10,7 @@ class CartTest extends SapphireTest
     public function test_calculation_of_total()
     {
         // GIVEN we have this cart
-        $cart = [
+        $items = [
             [
                 'itemID' => 1,
                 'price' => '96000',
@@ -38,7 +39,7 @@ class CartTest extends SapphireTest
 
         // WHEN  we add the items into the cart 
         $cart = new Cart();
-        $cart->syncItems($cart);
+        $cart->syncItems($items);
 
         // THEN we get this total $2031.19
 
