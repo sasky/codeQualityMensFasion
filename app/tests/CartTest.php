@@ -34,15 +34,15 @@ class CartTest extends SapphireTest
                 ],
             ],
         ];
-        // The Total will be 86000 + 86500 +  30619 = 203119
+        // The Total will be 86000 + 86500 +  30619 = 203119 ( in cents)
 
-        // WHEN 
-        
+        // WHEN  we add the items into the cart 
+        $cart = new Cart();
+        $cart->syncItems($cart);
 
-        // THEN 
+        // THEN we get this total $2031.19
 
-
-        
-        $this->assertTrue(true);
+        $total = $cart->getTotal(); 
+        $this->assertEquals(2031.19, $total);
     }
 }
