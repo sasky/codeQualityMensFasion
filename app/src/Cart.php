@@ -12,7 +12,7 @@ class Cart {
 
     }
 
-    public function getTotal():float
+    public function getTotal(): float
     {
 
         $total = 0;
@@ -38,13 +38,22 @@ class Cart {
        
     }
 
-    private function calculateDiscount(int $price,int $discountAmount, string $type) :int
+    private function calculateDiscount(int $price, int $discountAmount, string $type) :int
     {
         if(!$discountAmount) {
             return $price;
         }
         if($type == 'PERCENT') {
-            
+            return $this->calculatePercentDiscount($price, $discountAmount);
+
+        } elseif  ($type == 'MINUS'){
+            return $this->calculatePercentDiscount($price, $discountAmount);
+        }
+        user_error('Calculate discount requires the discount amount to be a string of "PERCENT" of "MINUS');
+    }
+
+    private function calculatePercentDiscount(int $price,int $discountAmount) :int
+    {
             // the Discount Amount must be less than or equal to 100 
             $discountAmount = ($discountAmount > 100) ? 100 : $discountAmount;
             // the Discount Amount must be more than 0 ( no negatives )
@@ -57,15 +66,19 @@ class Cart {
                 // eg 30% off gets converted into 70% off amount
                 $discountAmount = abs(100 - $discountAmount);
                 // do the percent calculation how I was taught in school
-                $price = (int)round(max(($price / 100) * $discountAmount, 0));
+                $price = (int) round (max( ($price / 100) * $discountAmount, 0));
             }
+            return $price;
+    }
 
-        } elseif  ($type == 'MINUS'){
-            // convert $discountAmount into cents
-            $discountAmount = (int) $discountAmount * 100;
-            // price minus the discount 
-            $price = (int) round(max($price - $discountAmount, 0));
-        }
+    private function calculateMinusDiscount(int $price, int $discountAmount) :int
+    {
+        
+        // convert $discountAmount into cents
+        $discountAmount = (int) $discountAmount * 100;
+        // price minus the discount 
+        $price = (int) round(max($price - $discountAmount, 0));
+
         return $price;
     }
 }
