@@ -8,9 +8,36 @@ class CartTest extends SapphireTest
 {
     public function test_calculation_of_total()
     {
-        // GIVEN 
+        // GIVEN we have this cart
+        $cart = [
+            [
+                'itemID' => 1,
+                'price' => '96000',
+                'quantity' => 1,
+                'discount' => [
+                    'code' => 'ABCDEF', // 96000- 100 = 86000
+                    'discount' => 100,
+                    'discountType' => 'MINUS',
+                ],
+            ],
+            [
+                'itemID' => 2,
+                'price' => '86500',
+            ],
+            [
+                'itemID' => 3,
+                'price' => '45700', // 33% off 45700 is  30619
+                'discount' => [
+                    'code' => 'ABCDEF',
+                    'discount' => 33,
+                    'discountType' => 'PERCENT',
+                ],
+            ],
+        ];
+        // The Total will be 86000 + 86500 +  30619 = 203119
 
         // WHEN 
+        
 
         // THEN 
 
