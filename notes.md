@@ -25,6 +25,9 @@
 - Have empathy for other people reading it, and your future self 
 - trivial congestion adds up over the day
 
+- with making objects return itself when possible
+- inheritance works when it's a 'Is a' not a 'Has a' Sandi Metz
+
 
 timeless white t shirt
 variations will not be timeless ( to baggy, deep v )
