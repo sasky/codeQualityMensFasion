@@ -1,5 +1,6 @@
 /silverstripe-cache/
 /.env
+.php_cs.cache
 /vendor/
 /themes/simple/
 /_resources/

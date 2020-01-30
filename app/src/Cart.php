@@ -1,6 +1,8 @@
 <?php
 namespace CodeQuality\src;
 
+use Exception;
+
 class Cart {
 
     private $items = [];
@@ -47,33 +49,51 @@ class Cart {
             return $this->calculatePercentDiscount($price, $discountAmount);
 
         } elseif  ($type == 'MINUS'){
-            return $this->calculatePercentDiscount($price, $discountAmount);
+            return $this->calculateMinusDiscount($price, $discountAmount);
         }
         user_error('Calculate discount requires the discount amount to be a string of "PERCENT" of "MINUS');
     }
 
-    private function calculatePercentDiscount(int $price,int $discountAmount) :int
+    private function calculatePercentDiscount(int $price, int $discountAmount) :int
     {
-            // the Discount Amount must be less than or equal to 100 
-            $discountAmount = ($discountAmount > 100) ? 100 : $discountAmount;
-            // the Discount Amount must be more than 0 ( no negatives )
-            $discountAmount = max($discountAmount, 0);
+   
+        if($discountAmount < 0) {
+            throw new Exception('Discount amount can not be less than 0');
+        }
+        if( $discountAmount > 100) {
+            throw new Exception('Discount amount can not be more than 100');
+        }
         
-            if ($discountAmount === 100) {
-                $price = 0;
-            } else {
-                // convert the  percent off into amount remaining
-                // eg 30% off gets converted into 70% off amount
-                $discountAmount = abs(100 - $discountAmount);
-                // do the percent calculation how I was taught in school
-                $price = (int) round (max( ($price / 100) * $discountAmount, 0));
-            }
+        if($discountAmount === 0) {
             return $price;
+        }
+
+        if($discountAmount === 100) {
+            return 0;
+        }
+
+        // convert the  percent off into amount remaining
+        // eg 30% off gets converted into 70% off amount
+        $percentOff = abs(100 - $discountAmount);
+     
+        $price = ($price / 100) * $percentOff;
+        $price = max($price,0);
+        $price = round($price);
+        return $price;
+
+        // https://liamhammett.com/php-function-chaining-with-pipes-47rqArOY
+        // return take(($price / 100) * $percentOff )
+        //       ->max(PIPED_VALUE,0)
+        //       ->round()
+        //       ->get();            
     }
 
     private function calculateMinusDiscount(int $price, int $discountAmount) :int
     {
-        
+        if(!$discountAmount) {
+            return $price;
+        }
+
         // convert $discountAmount into cents
         $discountAmount = (int) $discountAmount * 100;
         // price minus the discount 
