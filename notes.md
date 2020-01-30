@@ -17,9 +17,7 @@
 
 - splitting functions up (class does one thing, a function does one thing) ( uncle bob, Santi Metz)
 
-- favour pure functions , be mindfull of side effects 
-
--
+- favour pure functions , be mindful of side effects 
 
 - throw many errors ( don't try to work around it ) (pragmatic programmers)
 
