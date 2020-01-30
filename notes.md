@@ -23,7 +23,9 @@
 
 - throw many errors ( don't try to work around it ) (pragmatic programmers)
 
-
+- simple code is code where you don't have to think to follow it
+- Have empathy for other people reading it, and your future self 
+- trivial congestion adds up over the day
 
 
 timeless white t shirt
