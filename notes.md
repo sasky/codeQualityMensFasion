@@ -2,11 +2,9 @@
 
 - always start with GIVEN WHEN THEN 
 
-
-
-
 - test code is not production code 
 ( think of it more as a play ground/ then as documentation )
+
 - Writing the test feeling out the design ( in constructor , addItem, add Items(), syncItems())
 
 # write the code
@@ -27,6 +25,11 @@
 
 - with making objects return itself when possible
 - inheritance works when it's a 'Is a' not a 'Has a' Sandi Metz
+
+- the big take away is the niceness of having instant feedback
+    
+- the ease of refactoring 
+- producers better quality code
 
 
 timeless white t shirt

@@ -8,7 +8,6 @@ class Cart {
 
     private $items = [];
 
-
     public function syncItems(array $items)
     {
         foreach($items as $itemData) {
